@@ -1,0 +1,7 @@
+exports/
+scripts/
+docs/
+tests/
+.git/
+node_modules/
+dist/
