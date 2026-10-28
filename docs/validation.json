@@ -1,0 +1,131 @@
+{
+  "seed": 19,
+  "checks": [
+    {
+      "prompt": "Once upon a time, there was a",
+      "steps": 8,
+      "max_abs": 0.0,
+      "bytes": 24807680
+    },
+    {
+      "prompt": " red blue green red blue green red",
+      "steps": 8,
+      "max_abs": 0.0,
+      "bytes": 22775040
+    },
+    {
+      "prompt": "The sun is bright, the moon at night,",
+      "steps": 8,
+      "max_abs": 0.0,
+      "bytes": 28882176
+    },
+    {
+      "prompt": "1. Apples\n2. Oranges\n3.",
+      "steps": 8,
+      "max_abs": 0.0,
+      "bytes": 32968960
+    },
+    {
+      "prompt": "def square(x):\n    return",
+      "steps": 8,
+      "max_abs": 0.0,
+      "bytes": 24807680
+    },
+    {
+      "prompt": "She opened the door and saw",
+      "steps": 8,
+      "max_abs": 0.0,
+      "bytes": 20745472
+    },
+    {
+      "seeded_prompt": "runs because because one",
+      "max_abs": 0.0
+    },
+    {
+      "seeded_prompt": "cloud cloud river one the a runs a tree cloud a the",
+      "max_abs": 0.0
+    },
+    {
+      "seeded_prompt": "because one light runs one river",
+      "max_abs": 0.0
+    },
+    {
+      "seeded_prompt": "runs one cloud apple a a runs the blue because light runs one river cloud river",
+      "max_abs": 0.0
+    },
+    {
+      "seeded_prompt": "tree cat cat river cat because one a a a blue tree one river light apple river",
+      "max_abs": 0.0
+    },
+    {
+      "seeded_prompt": "cat apple blue cat apple runs tree apple the cat cat cat",
+      "max_abs": 0.0
+    },
+    {
+      "seeded_prompt": "cloud tree cat apple river blue apple cat river cloud a light tree cloud cloud tree one",
+      "max_abs": 0.0
+    },
+    {
+      "seeded_prompt": "the the because cloud the blue because tree runs cloud blue blue",
+      "max_abs": 0.0
+    },
+    {
+      "seeded_prompt": "runs river apple because apple a light the cloud light apple because cat cat tree a river",
+      "max_abs": 0.0
+    },
+    {
+      "seeded_prompt": "a river cloud river light light light apple blue a apple light cloud cloud cat cloud a",
+      "max_abs": 0.0
+    },
+    {
+      "seeded_prompt": "apple one cloud one apple",
+      "max_abs": 0.0
+    },
+    {
+      "seeded_prompt": "river blue tree blue cat light river cloud river tree cat",
+      "max_abs": 0.0
+    },
+    {
+      "seeded_prompt": "cloud blue light a apple river apple",
+      "max_abs": 0.0
+    },
+    {
+      "seeded_prompt": "river light apple one blue light river blue river cat because because a tree a cat the",
+      "max_abs": 0.0
+    },
+    {
+      "seeded_prompt": "cat one apple one the",
+      "max_abs": 0.0
+    },
+    {
+      "seeded_prompt": "because tree blue apple",
+      "max_abs": 0.0
+    },
+    {
+      "seeded_prompt": "river one cloud light blue cat light cat apple one",
+      "max_abs": 0.0
+    },
+    {
+      "seeded_prompt": "because the tree blue a",
+      "max_abs": 0.0
+    },
+    {
+      "seeded_prompt": "apple cat light one the",
+      "max_abs": 0.0
+    },
+    {
+      "seeded_prompt": "runs river blue runs apple runs cat cloud apple apple runs because apple river tree runs",
+      "max_abs": 0.0
+    }
+  ],
+  "checks_per_trace": [
+    "native logits parity <1e-4",
+    "same greedy token",
+    "causal zeros",
+    "attention rows sum to one",
+    "weighted value reconstruction",
+    "parallel residual exact recombination",
+    "softmax normalization",
+    "ten source samples per tensor"
+  ]
+}
