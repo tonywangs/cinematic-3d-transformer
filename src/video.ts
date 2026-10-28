@@ -1,2 +1,105 @@
-import{World}from'./world';import{sceneAt}from'./scene.mjs';import{loadStep,type Manifest}from'./trace';
-export async function exportFilm(w:World,manifest:Manifest,portrait:boolean,status:(s:string)=>void){status('Preparing frames…');const duration=portrait?30:90,width=portrait?1080:1920,height=portrait?1920:1080;const start=await fetch('/export/start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({width,height,fps:30,name:portrait?'portrait':'film'})});if(!start.ok)throw Error('Start the local export server to render MP4.');const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;const ctx=canvas.getContext('2d')!;w.renderer.setPixelRatio(1);w.renderer.setSize(width,portrait?height*.52:height,false);w.camera.aspect=width/(portrait?height*.52:height);w.camera.updateProjectionMatrix();let loaded=-1;for(let frame=0;frame<duration*30;frame++){const t=frame/30*(portrait?3:1),s=sceneAt(t,{layer:0}),generation=s.chapter===6?s.loopStep:0,st=manifest.steps[generation];if(loaded!==generation){w.setData(await loadStep(st),st,{layer:0,head:0,token:st.tokens.length-1});loaded=generation}w.setTime(t,false);ctx.fillStyle='#090f17';ctx.fillRect(0,0,width,height);ctx.drawImage(w.canvas,0,portrait?height*.23:0);ctx.fillStyle='#dfe9eb';ctx.font=`${portrait?34:24}px sans-serif`;ctx.fillText('CINEMATIC TRANSFORMER',60,65);ctx.font=`${portrait?62:48}px Georgia`;ctx.fillText(s.title,60,portrait?180:150);ctx.font=`${portrait?28:22}px monospace`;const wrap=(text:string,length:number)=>text.match(new RegExp(`.{1,${length}}(?:\\s|$)|.{1,${length}}`,'g'))||[];wrap(manifest.prompt+manifest.steps.slice(0,generation).map(s=>s.next_token).join(''),portrait?45:95).forEach((line,i)=>ctx.fillText(line.trim(),60,(portrait?280:210)+i*38));if(s.chapter>=5){ctx.fillStyle='#abd9c6';ctx.font=`${portrait?28:24}px monospace`;st.predictions.slice(0,3).forEach((p,i)=>ctx.fillText(`${JSON.stringify(p.text)}  ${(p.p*100).toFixed(2)}%`,60,(portrait?430:310)+i*40))}ctx.fillStyle='#b7c8ce';ctx.font=`${portrait?28:22}px sans-serif`;wrap(s.caption,portrait?55:125).forEach((line,i)=>ctx.fillText(line.trim(),60,height-160+i*36));ctx.font='18px monospace';ctx.fillText('Illustrative animation · recorded Pythia-70M computation',60,height-45);const blob=await new Promise<Blob>(resolve=>canvas.toBlob(b=>resolve(b!),'image/png'));const sent=await fetch('/export/frame',{method:'POST',body:blob});if(!sent.ok)throw Error('Frame export failed.');if(frame%30===0)status(`Rendering ${Math.floor(frame/30)} / ${duration}s`)}const done=await fetch('/export/finish',{method:'POST'});if(!done.ok)throw Error('Video encoding failed.');status('MP4 saved in exports/')}
+import { World } from "./world";
+import { sceneAt } from "./scene.mjs";
+import { loadStep, type Manifest } from "./trace";
+export async function exportFilm(
+  w: World,
+  manifest: Manifest,
+  portrait: boolean,
+  status: (s: string) => void,
+) {
+  status("Preparing frames…");
+  const duration = portrait ? 30 : 90,
+    width = portrait ? 1080 : 1920,
+    height = portrait ? 1920 : 1080;
+  const start = await fetch("/export/start", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      width,
+      height,
+      fps: 30,
+      name: portrait ? "portrait" : "film",
+    }),
+  });
+  if (!start.ok) throw Error("Start the local export server to render MP4.");
+  const canvas = document.createElement("canvas");
+  canvas.width = width;
+  canvas.height = height;
+  const ctx = canvas.getContext("2d")!;
+  w.renderer.setPixelRatio(1);
+  w.renderer.setSize(width, portrait ? height * 0.52 : height, false);
+  w.camera.aspect = width / (portrait ? height * 0.52 : height);
+  w.camera.updateProjectionMatrix();
+  let loaded = -1;
+  for (let frame = 0; frame < duration * 30; frame++) {
+    const t = (frame / 30) * (portrait ? 3 : 1),
+      s = sceneAt(t, { layer: 0 }),
+      generation = s.chapter === 6 ? s.loopStep : 0,
+      st = manifest.steps[generation];
+    if (loaded !== generation) {
+      w.setData(await loadStep(st), st, {
+        layer: 0,
+        head: 0,
+        token: st.tokens.length - 1,
+      });
+      loaded = generation;
+    }
+    w.setTime(t, false);
+    ctx.fillStyle = "#090f17";
+    ctx.fillRect(0, 0, width, height);
+    ctx.drawImage(w.canvas, 0, portrait ? height * 0.23 : 0);
+    ctx.fillStyle = "#dfe9eb";
+    ctx.font = `${portrait ? 34 : 24}px sans-serif`;
+    ctx.fillText("CINEMATIC TRANSFORMER", 60, 65);
+    ctx.font = `${portrait ? 62 : 48}px Georgia`;
+    ctx.fillText(s.title, 60, portrait ? 180 : 150);
+    ctx.font = `${portrait ? 28 : 22}px monospace`;
+    const wrap = (text: string, length: number) =>
+      text.match(new RegExp(`.{1,${length}}(?:\\s|$)|.{1,${length}}`, "g")) ||
+      [];
+    wrap(
+      manifest.prompt +
+        manifest.steps
+          .slice(0, generation)
+          .map((s) => s.next_token)
+          .join(""),
+      portrait ? 45 : 95,
+    ).forEach((line, i) =>
+      ctx.fillText(line.trim(), 60, (portrait ? 280 : 210) + i * 38),
+    );
+    if (s.chapter >= 5) {
+      ctx.fillStyle = "#abd9c6";
+      ctx.font = `${portrait ? 28 : 24}px monospace`;
+      st.predictions
+        .slice(0, 3)
+        .forEach((p, i) =>
+          ctx.fillText(
+            `${JSON.stringify(p.text)}  ${(p.p * 100).toFixed(2)}%`,
+            60,
+            (portrait ? 430 : 310) + i * 40,
+          ),
+        );
+    }
+    ctx.fillStyle = "#b7c8ce";
+    ctx.font = `${portrait ? 28 : 22}px sans-serif`;
+    wrap(s.caption, portrait ? 55 : 125).forEach((line, i) =>
+      ctx.fillText(line.trim(), 60, height - 160 + i * 36),
+    );
+    ctx.font = "18px monospace";
+    ctx.fillText(
+      "Illustrative animation · recorded Pythia-70M computation",
+      60,
+      height - 45,
+    );
+    const blob = await new Promise<Blob>((resolve) =>
+      canvas.toBlob((b) => resolve(b!), "image/png"),
+    );
+    const sent = await fetch("/export/frame", { method: "POST", body: blob });
+    if (!sent.ok) throw Error("Frame export failed.");
+    if (frame % 30 === 0)
+      status(`Rendering ${Math.floor(frame / 30)} / ${duration}s`);
+  }
+  const done = await fetch("/export/finish", { method: "POST" });
+  if (!done.ok) throw Error("Video encoding failed.");
+  status("MP4 saved in exports/");
+}

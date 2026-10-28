@@ -1,0 +1,38 @@
+[
+  {
+    "prompt": "def square(x):\n    return",
+    "first_step_compressed_bytes": 1911368,
+    "bundle_bytes": 24807680,
+    "max_three_decoded_bytes": 11210880
+  },
+  {
+    "prompt": "The sun is bright, the moon at night,",
+    "first_step_compressed_bytes": 2334377,
+    "bundle_bytes": 28882176,
+    "max_three_decoded_bytes": 12744576
+  },
+  {
+    "prompt": "She opened the door and saw",
+    "first_step_compressed_bytes": 1465004,
+    "bundle_bytes": 20745472,
+    "max_three_decoded_bytes": 9681792
+  },
+  {
+    "prompt": "1. Apples\n2. Oranges\n3.",
+    "first_step_compressed_bytes": 2752411,
+    "bundle_bytes": 32968960,
+    "max_three_decoded_bytes": 14282880
+  },
+  {
+    "prompt": " red blue green red blue green red",
+    "first_step_compressed_bytes": 1568313,
+    "bundle_bytes": 22775040,
+    "max_three_decoded_bytes": 10445760
+  },
+  {
+    "prompt": "Once upon a time, there was a",
+    "first_step_compressed_bytes": 1897047,
+    "bundle_bytes": 24807680,
+    "max_three_decoded_bytes": 11210880
+  }
+]

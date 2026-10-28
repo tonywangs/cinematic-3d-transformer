@@ -1,0 +1,11 @@
+{
+  "viewport": [
+    1440,
+    900
+  ],
+  "browser": "Codex in-app browser on Apple-silicon macOS",
+  "completePlayback": true,
+  "generationSteps": 8,
+  "measurement": "Playback check: 10796 frames · median 120.5 FPS · p95 9.50 ms.",
+  "note": "Frame intervals during active playback; trace-loading pauses excluded."
+}

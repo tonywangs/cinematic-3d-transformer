@@ -1,5 +1,9 @@
 # Cinematic 3D Transformer
 
+**[Open the app](https://cinematic-3d-transformer.vercel.app/) · [Video downloads](https://github.com/tonywangs/cinematic-3d-transformer/releases/tag/v0.1.0)**
+
+![App preview](docs/preview.jpg)
+
 A guided, inspectable film of a real Pythia-70M computation. Follow a prompt through embeddings, rotary attention, parallel attention/MLP branches, six residual blocks, and next-token selection. Every displayed number comes from a saved execution.
 
 ## Run
